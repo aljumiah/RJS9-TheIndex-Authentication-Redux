@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
+// Actions
+import * as actionCreators from "./store/actions";
 class Login extends Component {
   state = {
     username: "",
@@ -12,7 +15,7 @@ class Login extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    alert("I DON'T WORK YET");
+    this.props.login(this.state, this.props.history);
   };
 
   render() {
@@ -62,4 +65,12 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = dispatch => ({
+  login: (userData, history) =>
+    dispatch(actionCreators.login(userData, history))
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Login);
